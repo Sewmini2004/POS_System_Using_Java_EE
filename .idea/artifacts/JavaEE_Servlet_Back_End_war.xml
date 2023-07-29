@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="JavaEE-Servlet-Back-End:war">
+    <output-path>$PROJECT_DIR$/JavaEE-Servlet-Back-End/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>JavaEE-Servlet-Back-End</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="JavaEE-Servlet-Back-End-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="JavaEE-Servlet-Back-End:war exploded" />
+    </root>
+  </artifact>
+</component>
