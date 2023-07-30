@@ -10,9 +10,13 @@ import java.util.Date;
 @Setter
 @ToString
 public class OrderDTO {
-    private String id;
-    private String customer_id;
-    private Date date;
-    private double discount;
-    private double sub_total;
+    private String orId;
+    private Date orDate;
+    private String orcustomer_id;
+    private double orDis;
+    private double orSubTotal;
+
 }
+
+
+

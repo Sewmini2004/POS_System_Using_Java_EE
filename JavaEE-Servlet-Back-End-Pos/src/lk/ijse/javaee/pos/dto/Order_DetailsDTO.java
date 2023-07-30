@@ -8,5 +8,10 @@ import lombok.*;
 @Setter
 @ToString
 public class Order_DetailsDTO {
-
+ private String id;
+ private String orItemCOde;
+ private String order_id;
+ private double orItemPrice;
+ private int orItemQTY;
+ private double  orItemTotal;
 }
