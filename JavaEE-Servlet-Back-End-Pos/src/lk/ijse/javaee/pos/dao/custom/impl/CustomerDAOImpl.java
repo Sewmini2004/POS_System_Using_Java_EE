@@ -29,10 +29,10 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public void update(Customer customer, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("update customer set name=?,address=?,salary=? where id=? ");
-        statement.setObject(1, customer.getCusId());
-        statement.setObject(2, customer.getCusName());
-        statement.setObject(3, customer.getCusAddress());
-        statement.setObject(4, customer.getCusSalary());
+        statement.setObject(1, customer.getCusName());
+        statement.setObject(2, customer.getCusAddress());
+        statement.setObject(3, customer.getCusSalary());
+        statement.setObject(4, customer.getCusId());
         if (statement.executeUpdate() > 0) {
             System.out.println("Updated");
         } else {
