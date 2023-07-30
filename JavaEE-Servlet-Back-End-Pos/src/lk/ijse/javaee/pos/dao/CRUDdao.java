@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CRUDdao<T> extends SuperDAO {
-    void save(T t, Connection connection) throws SQLException;
+    boolean save(T t, Connection connection) throws SQLException;
 
-    void update(T t, Connection connection) throws SQLException;
+    boolean update(T t, Connection connection) throws SQLException;
 
-    void delete(String id, Connection connection) throws SQLException;
+    boolean delete(String id, Connection connection) throws SQLException;
 
     T search(String id, Connection connection) throws SQLException;
 

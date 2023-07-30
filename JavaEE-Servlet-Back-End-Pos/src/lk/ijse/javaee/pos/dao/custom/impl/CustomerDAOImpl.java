@@ -14,7 +14,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void save(Customer customer, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("insert into customer values (?,?,?,?);");
+        PreparedStatement statement = connection.prepareStatement("insert into customer values (?,?,?,?)");
         statement.setObject(1, customer.getCusId());
         statement.setObject(2, customer.getCusName());
         statement.setObject(3, customer.getCusAddress());
@@ -42,7 +42,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void delete(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE id=?;");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM customer WHERE id=?");
         statement.setObject(1, id);
         if (statement.executeUpdate() > 0) {
             System.out.println("Deleted");
