@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ItemDAOImple implements ItemDAO {
     @Override
-    public void save(ItemEntity itemEntity, Connection connection) throws SQLException {
+    public boolean save(ItemEntity itemEntity, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("insert into item values (?,?,?,?)");
         statement.setObject(1, itemEntity.getItemCode());
         statement.setObject(2, itemEntity.getItemName());
@@ -21,13 +21,15 @@ public class ItemDAOImple implements ItemDAO {
         statement.setObject(4, itemEntity.getItemPrice());
         if (statement.executeUpdate() > 0) {
             System.out.println("Saved");
+            return true;
         } else {
-            System.out.println("Saved Failed");
+            System.out.println("Save Failed");
+            return false;
         }
     }
 
     @Override
-    public void update(ItemEntity itemEntity, Connection connection) throws SQLException {
+    public boolean update(ItemEntity itemEntity, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("update item set name=?,qty=?,unit_price=? where code=? ");
         statement.setObject(1, itemEntity.getItemName());
         statement.setObject(2, itemEntity.getQtyOnHand());
@@ -35,19 +37,23 @@ public class ItemDAOImple implements ItemDAO {
         statement.setObject(4, itemEntity.getItemCode());
         if (statement.executeUpdate() > 0) {
             System.out.println("Updated");
+            return true;
         } else {
             System.out.println("Update Failed");
+            return false;
         }
     }
 
     @Override
-    public void delete(String id, Connection connection) throws SQLException {
+    public boolean delete(String id, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("DELETE FROM item WHERE code=?;");
         statement.setObject(1, id);
         if (statement.executeUpdate() > 0) {
             System.out.println("Deleted");
+            return true;
         } else {
             System.out.println("Delete Failed");
+            return false;
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class OrderDAOImple implements OrderDAO {
     @Override
-    public void save(OrderEntity orderEntity, Connection connection) throws SQLException {
+    public boolean save(OrderEntity orderEntity, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("insert into order values (?,?,?,?,?)");
         statement.setObject(1, orderEntity.getOrId());
         statement.setObject(2, orderEntity.getOrcustomer_id());
@@ -22,14 +22,16 @@ public class OrderDAOImple implements OrderDAO {
         statement.setObject(5, orderEntity.getOrSubTotal());
         if (statement.executeUpdate() > 0) {
             System.out.println("Saved");
+            return true;
         } else {
             System.out.println("Saved Failed");
+            return false;
         }
     }
 
 
     @Override
-    public void update(OrderEntity orderEntity, Connection connection) throws SQLException {
+    public boolean update(OrderEntity orderEntity, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("update order set customer_id=?,date=?,discount=?,sub_total where id=? ");
         statement.setObject(1, orderEntity.getOrcustomer_id());
         statement.setObject(2, orderEntity.getOrDate());
@@ -38,19 +40,23 @@ public class OrderDAOImple implements OrderDAO {
         statement.setObject(5, orderEntity.getOrId());
         if (statement.executeUpdate() > 0) {
             System.out.println("Updated");
+            return true;
         } else {
             System.out.println("Update Failed");
+            return false;
         }
     }
 
     @Override
-    public void delete(String id, Connection connection) throws SQLException {
+    public boolean delete(String id, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("DELETE FROM order WHERE code=?;");
         statement.setObject(1, id);
         if (statement.executeUpdate() > 0) {
             System.out.println("Deleted");
+            return true;
         } else {
             System.out.println("Delete Failed");
+            return false;
         }
     }
 

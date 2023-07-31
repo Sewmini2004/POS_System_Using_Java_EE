@@ -12,5 +12,4 @@ public class CustomerDTO {
     private String cusName;
     private String cusAddress;
     private double cusSalary;
-
 }

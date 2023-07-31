@@ -15,7 +15,7 @@ function orderModal(orderId,orderDate,customer_id,discount,subTotal) {
 
 class OrderModal {
     order(orderId, orderDate, customer_id, discount, subTotal) {
-        this.orId = orderId,
+            this.orId = orderId,
             this.orDate = orderDate,
             this.orcustomer_id = customer_id,
             this.orDis = discount,

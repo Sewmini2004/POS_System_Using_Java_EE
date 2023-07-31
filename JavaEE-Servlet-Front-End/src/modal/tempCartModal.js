@@ -15,7 +15,7 @@ function tempCartModal(id,itemCode,order_id,itmPrice,itemOrderQty,total) {
 
 class TempCartModal {
     tempOrder() {
-        this.orid = id,
+       /*     this.orid = id,*/
             this.orItemCOde = itemCode,
             this.ororder_id = order_id,
             this.orItemPrice = itmPrice,

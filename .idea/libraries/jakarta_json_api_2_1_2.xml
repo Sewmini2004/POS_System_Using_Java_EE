@@ -10,7 +10,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/JavaEE-Servlet-Back-End-Pos/src" />
-      <root url="file://$PROJECT_DIR$/JavaEE-Servlet-Back-End/src/main/java" />
       <root url="jar://$USER_HOME$/.ideaLibSources/jakarta.json.bind-api-3.0.0-sources.jar!/" />
     </SOURCES>
   </library>

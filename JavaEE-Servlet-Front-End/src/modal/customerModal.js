@@ -12,7 +12,8 @@ function customerModal(customerID, customerName, customerAddress, customerSalary
 
 
 class CustomerModal {
-    customer(customerID, customerName, customerAddress, customerSalary) {
+
+    constructor(customerID, customerName, customerAddress, customerSalary) {
         this.cusId = customerID;
         this.cusName = customerName;
         this.cusAddress = customerAddress;

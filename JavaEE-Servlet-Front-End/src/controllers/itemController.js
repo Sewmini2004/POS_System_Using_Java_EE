@@ -64,13 +64,35 @@ $('#itemQtyOnHand').on('keydown',function (event){
 /*save Item*/
 function itemSave(itmCode,itemName,qtOHand,itPrice) {
 
-    itemModal(itmCode,itemName,qtOHand,itPrice);
-    /*Double click to remove*/
+     let itemObject = new itemModal(itmCode,itemName,qtOHand,itPrice);
+    $.ajax({
+        method:"POST",
+        url:"http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/item",
+        data:JSON.stringify(itemObject),
+        contentType:"appliction/json",
+        success: function (res) {
+            if (res.status == 200) { //process is ok
+                alert(res.message);
+               getAllItemsFromBackEnd();
+                dblClickDelete();
+                loadAllItemId();
+                clearAllItemData();
+            } else if (res.status == 400) { //there is a problem with the client side
+                alert(res.message);
+            } else  {   // else may be there is a exception
+                alert(res.data);
+            }
 
-    addTable();
-    dblClickDelete();
-    loadAllItemId();
-    clearAllItemData();
+        },
+        error: function (ob, errorStus) {
+            console.log(ob);  // other errors
+
+
+
+
+        }
+    })
+
 }
 
 /*Search Item*/
@@ -140,10 +162,31 @@ $("#btnItemDelete").click(function () {
     let option = confirm("Do you really want to delete Item  :" + delID);
     if (option){
         if (deleteItem(delID)) {
-            alert("Item Successfully Deleted..");
-            clearAllItemData();
-        } else {
-            alert("No such Item to delete. please check the Code");
+
+            $.ajax({
+                url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/item?Item=" + delID,
+                method: "DELETE",
+                success: function (res) {
+                    console.log(res);
+                    if (res.status == 200) {
+                        alert(res.message);
+                        clearAllItemData();
+
+                    } else if (res.status == 400) {
+                        alert(res.data);
+                    }
+
+                },
+                error: function (ob, status, t) {
+                    console.log(ob);
+                    console.log(status);
+                    console.log(t);
+
+
+                }
+            });
+
+
         }
     }
 });
@@ -184,6 +227,8 @@ $("#btnItemUpdate").click(function () {
     }
 });
 
+
+
 function updateItem(itemsID) {
     let items = searchItem(itemsID);
     if (items != null) {
@@ -196,6 +241,24 @@ function updateItem(itemsID) {
     } else {
         return false;
     }
+}
+
+
+//GetAllItems from backend
+function getAllItemsFromBackEnd() {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/item",
+
+        success: function (resp) {
+            customerAr = resp.data;
+            console.log("Get all request success");
+            addTable();
+        },
+        error: function (err) {
+            console.log("Get all request failed");
+        }
+    });
 }
 
 /*Disable Tab*/

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Order_DetailesDAOImple implements Order_DetailesDAO {
     @Override
-    public void save(Order_DetailesEntity order_detailesEntity, Connection connection) throws SQLException {
+    public boolean save(Order_DetailesEntity order_detailesEntity, Connection connection) throws SQLException {
 
         PreparedStatement statement = connection.prepareStatement("insert into order_details values (?,?,?,?,?,?)");
         statement.setObject(1, order_detailesEntity.getId());
@@ -24,13 +24,15 @@ public class Order_DetailesDAOImple implements Order_DetailesDAO {
         statement.setObject(6, order_detailesEntity.getOrItemTotal());
         if (statement.executeUpdate() > 0) {
             System.out.println("Saved");
+            return true;
         } else {
             System.out.println("Saved Failed");
+            return false;
         }
     }
 
     @Override
-    public void update(Order_DetailesEntity order_detailesEntity, Connection connection) throws SQLException {
+    public boolean update(Order_DetailesEntity order_detailesEntity, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("update order_details set order_id=?,item_code=?,qty=?,unit_price=?,total=? where id=?");
         statement.setObject(1, order_detailesEntity.getOrder_id());
         statement.setObject(2, order_detailesEntity.getOrItemCOde());
@@ -40,19 +42,23 @@ public class Order_DetailesDAOImple implements Order_DetailesDAO {
         statement.setObject(6, order_detailesEntity.getId());
         if (statement.executeUpdate() > 0) {
             System.out.println("Updated");
+            return true;
         } else {
             System.out.println("Update Failed");
+            return false;
         }
     }
 
     @Override
-    public void delete(String id, Connection connection) throws SQLException {
+    public boolean delete(String id, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("DELETE FROM order_details WHERE id=?;");
         statement.setObject(1, id);
         if (statement.executeUpdate() > 0) {
             System.out.println("Deleted");
+            return true;
         } else {
             System.out.println("Delete Failed");
+            return false;
         }
     }
 

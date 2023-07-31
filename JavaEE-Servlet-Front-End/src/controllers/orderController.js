@@ -41,7 +41,7 @@ $('#itemIdOrd').on('change',function (){
 $('#btnAddToCart').click(function (){
 
     let itemCode=$('#itemIdOrd').val();
-    let itmName = $('#item').val();
+    let order_id = $('#orderId').val();
     let itmPrice = $('#priceOrd').val();
     let itemOrderQty = $('#orderQty').val();
 
@@ -58,7 +58,9 @@ $('#btnAddToCart').click(function (){
         addCartData();
 
     }else{
-        tempCartModal(itemCode,itmName,itmPrice,itemOrderQty,total)
+        let tempCartModal=new TempCartModal(itemCode,order_id,itmPrice,itemOrderQty,total)
+
+
         addCartData();
     }
 
@@ -146,23 +148,35 @@ function clearData() {
 $('#purchaseOrder').click(function (){
     let orderId = $('#orderId').val();
     let orderDate = $('#OrderDate').val();
-    let customerName = $('#customerNameOrd').val();
+    let customer_id = $('#customerId').val();
     let discount = disTOGave;
     let subTotal = $('#subTotal').val();
+    let orderModal = new OrderModal(orderId,orderDate,customer_id,discount,subTotal);
+    $.ajax({
+        method:"POST",
+        url:"http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/order",
+        data:JSON.stringify(customerModal),
+        contentType:"application/json",
+        success:function (resp) {
 
-    orderModal(orderId,orderDate,customerName,discount,subTotal);
+            loadAllOrder();
+            blindOrderRowClickEvent();
+            clearOrderTexts();
 
-    loadAllOrder();
-    blindOrderRowClickEvent();
-    clearOrderTexts();
+            for (var tempOrder of tempOrderCartAr){
+                tempOrderCartAr.pop();
+            }
+            tempOrderCartAr.pop();
+            addCartData();
 
-    for (var tempOrder of tempOrderCartAr){
-        tempOrderCartAr.pop();
-    }
-    tempOrderCartAr.pop();
-    addCartData();
+            // console.log(orderArray);
+        },
+        error:function (err){
 
-    // console.log(orderArray);
+        }
+    });
+
+
 });
 
 /*FUNCTIONS*/
@@ -173,8 +187,8 @@ function blindOrderRowClickEvent(){
         $('#orderIdDash').val(ordId);
         let ordDate = $(this).children(':eq(1)').text();
         $('#OrderDateDash').val(ordDate);
-        let ordName = $(this).children(':eq(2)').text();
-        $('#customerNameDash').val(ordName);
+        let ordCusId = $(this).children(':eq(2)').text();
+        $('#customerIdDash').val(ordCusId);
         let ordDis = $(this).children(':eq(3)').text();
         $('#discountDash').val(ordDis);
         let ordCost = $(this).children(':eq(4)').text();
@@ -203,6 +217,6 @@ function clearOrderTexts(){
 function loadAllOrder(){
     $("#tblOrder> tr").detach();
     for (var i of orders){
-        $('#tblOrder').append('<tr><td>'+i.orId+'</td>'+'<td>'+i.orDate+'</td>'+'<td>'+i.orCusName+'</td>'+'<td>'+i.orDis+'</td>'+'<td>'+i.orSubTotal+'</td></tr>');
+        $('#tblOrder').append('<tr><td>'+i.orId+'</td>'+'<td>'+i.orDate+'</td>'+'<td>'+i.orcustomer_id+'</td>'+'<td>'+i.orDis+'</td>'+'<td>'+i.orSubTotal+'</td></tr>');
     }
 }
