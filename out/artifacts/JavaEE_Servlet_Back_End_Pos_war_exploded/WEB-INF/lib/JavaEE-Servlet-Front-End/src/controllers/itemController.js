@@ -162,10 +162,31 @@ $("#btnItemDelete").click(function () {
     let option = confirm("Do you really want to delete Item  :" + delID);
     if (option){
         if (deleteItem(delID)) {
-            alert("Item Successfully Deleted..");
-            clearAllItemData();
-        } else {
-            alert("No such Item to delete. please check the Code");
+
+            $.ajax({
+                url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/item?Item=" + delID,
+                method: "DELETE",
+                success: function (res) {
+                    console.log(res);
+                    if (res.status == 200) {
+                        alert(res.message);
+                        clearAllItemData();
+
+                    } else if (res.status == 400) {
+                        alert(res.data);
+                    }
+
+                },
+                error: function (ob, status, t) {
+                    console.log(ob);
+                    console.log(status);
+                    console.log(t);
+
+
+                }
+            });
+
+
         }
     }
 });
@@ -228,6 +249,7 @@ function getAllItemsFromBackEnd() {
     $.ajax({
         method: "GET",
         url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/item",
+
         success: function (resp) {
             customerAr = resp.data;
             console.log("Get all request success");

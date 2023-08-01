@@ -167,7 +167,7 @@ $("#btnCusDelete").click(function () {
     if (option) {
         if (deleteCustomer(delID)) {
             $.ajax({
-                url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/customer?CustomerId=" + delID,
+                url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/customer?customerId=".concat(delID),
                 method: "DELETE",
                 success: function (res) {
                     console.log(res);
@@ -216,62 +216,86 @@ function deleteCustomer(customerID) {
     }
 }
 
-
 /*Update Customer*/
 $("#btnCusUpdate").click(function () {
-    let customerID = $("#customerId").val();
-     let customerName=$("#customerName").val();
-     let customerAddress=$("#customerAddress").val();
-     let customerSalary=$("#customerSalary").val();
+    let customerID = $("#cId").val();
+    let customerName = $("#cName").val();
+    let customerAddress = $("#cAddress").val();
+    let customerSalary = $("#cSalary").val();
 
-     let customerModal1=new CustomerModal(customerID,customerName,customerAddress,customerSalary);
-
-
-
-/*
-    let customerModal = new CustomerModal(customerID, customerName, customerAddress, customerSalary);
-*/
-
-    $.ajax({
-    method:"PUT",
-     url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/customer",
-        data:JSON.stringify(customerModal1),
-        contentType:"application/json",
-        success: function (resp) {
-            if (res.status == 200) { //process is ok
-                alert(res.message);
-            } else if (res.status == 400) { //there is a problem with the client side
-                alert(res.message);
-            } else  {   // else may be there is a exception
-                alert(res.data);
-            }
-
-
-        },
-        error: function (err) {
-        alert(err);
-
+    let customerModal1 = new CustomerModal(customerID, customerName, customerAddress, customerSalary);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //code tk blla thrunda blnna manika ilg ek oyta thniym krnn wenne mn blm inno ai ar tik phlt tgtte mon tkd
+            updateCustomer(customerModal1);
         }
+    })
 
- })
-
-    /*  if (response) {
-          console.log("Customer Updated Successfully");
-      } else {
-          console.log("Update Failed..!");
-
-      }*/
 
 });
 
-function updateCustomer(customerID) {
-    let customer = searchCustomer(customerID);
+function updateCustomer(customerModal) {
+    let customer = searchCustomer(customerModal.cusId);
     if (customer != null) {
-        customer.cusId = $("#cId").val();
-        customer.cusName = $("#cName").val();
-        customer.cusAddress = $("#cAddress").val();
-        customer.cusSalary = $("#cSalary").val();
-        addCustomerTable();
+        $.ajax({
+            method: "PUT",
+            url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/customer",
+            data: JSON.stringify(customerModal),
+            contentType: "application/json",
+            success: function (resp) {
+                if (resp.status == 200) { //process is ok
+
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Update success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    getAllCustomersFromBackEnd();
+                    
+                    $("#cId").val("");
+                    $("#cName").val("");
+                    $("#cAddress").val("");
+                    $("#cSalary").val("");
+
+
+                } else if (resp.status == 400) { //there is a problem with the client side
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Update failed !',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {   // else may be there is a exception
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Update failed !',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            },
+            error: function (err) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Update failed !',
+                    showConfirmButton: true,
+                    timer: 1500
+                })
+            }
+        })
         return true;
     } else {
         return false;

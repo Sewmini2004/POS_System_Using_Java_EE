@@ -110,15 +110,16 @@ public class CustomerController extends HttpServlet {
 
     }
 
-   /* @SneakyThrows
+    @SneakyThrows
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CustomerDTO customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
+
         try {
-            Connection connection = dataSource.getConnection();
+            connection = dataSource.getConnection();
             boolean update = customerBO.update(customerDTO, connection);
             if (update) {
-                Response response = new Response(200, "Successfully", null);
+                Response response = new Response(200, "Customer  Updated Successfully", null);
                 String s = jsonb.toJson(response);
                 resp.setContentType("application/json");
                 resp.setStatus(200);
@@ -131,6 +132,7 @@ public class CustomerController extends HttpServlet {
                 resp.getWriter().write(s);
 
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             Response response = new Response(500, "error", throwables.getLocalizedMessage());
@@ -143,14 +145,15 @@ public class CustomerController extends HttpServlet {
         }
 
     }
-   */
-   @Override
+
+    @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerId = req.getParameter("CustomerId");
+        String customerId = req.getParameter("customerId");
+
         try {
             Connection connection = dataSource.getConnection();
             boolean delete = customerBO.delete(customerId, connection);
-            if (delete){
+            if (delete) {
 
                 Response response = new Response(200, "Successfully", null);
                 String s = jsonb.toJson(response);
