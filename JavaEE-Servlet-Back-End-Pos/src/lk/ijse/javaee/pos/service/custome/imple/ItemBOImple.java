@@ -8,7 +8,7 @@ import lk.ijse.javaee.pos.entity.Customer;
 import lk.ijse.javaee.pos.entity.ItemEntity;
 import lk.ijse.javaee.pos.service.custome.ItemBO;
 import lk.ijse.javaee.pos.service.util.Convert;
-//mt kalanthe wge ai
+
 import javax.mail.FetchProfile;
 import java.sql.Connection;
 import java.sql.SQLException;
