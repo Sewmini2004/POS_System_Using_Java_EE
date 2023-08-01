@@ -19,10 +19,11 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.78" level="application_server_libraries" />
-    <orderEntry type="library" name="javax.json-1.0.41" level="project" />
     <orderEntry type="library" name="javax.json-api-1.0" level="project" />
     <orderEntry type="library" name="javax:javaee-api:8.0" level="project" />
-    <orderEntry type="library" name="javax.json.bind-api-1.01" level="project" />
-    <orderEntry type="library" name="org.eclipse:yasson:2.0.4" level="project" />
+    <orderEntry type="library" name="jakarta.json-2.0.0" level="project" />
+    <orderEntry type="library" name="jakarta.json.bind-api-1.0.2" level="project" />
+    <orderEntry type="library" name="yasson-2.0.4" level="project" />
+    <orderEntry type="library" name="jakarta.json-api-2.1.1" level="project" />
   </component>
 </module>

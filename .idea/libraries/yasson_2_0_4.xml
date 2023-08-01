@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="yasson-2.0.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaEE-Servlet-Back-End-Pos/src/lk/ijse/javaee/pos/lib/yasson/yasson-2.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

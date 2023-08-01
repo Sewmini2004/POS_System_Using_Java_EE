@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jakarta.json-2.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/JavaEE-Servlet-Back-End-Pos/src/lk/ijse/javaee/pos/lib/yasson/jakarta.json-2.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

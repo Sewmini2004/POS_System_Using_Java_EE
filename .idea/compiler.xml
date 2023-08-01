@@ -7,10 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="POS_Backend" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JavaEE-Servlet-Back-End" target="1.8" />
+      <module name="POS_Backend" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
