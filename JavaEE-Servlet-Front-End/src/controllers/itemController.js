@@ -66,10 +66,10 @@ function itemSave(itmCode,itemName,qtOHand,itPrice) {
 
      let itemObject = new itemModal(itmCode,itemName,qtOHand,itPrice);
     $.ajax({
-        method:"POST",
         url:"http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/item",
+        method:"POST",
         data:JSON.stringify(itemObject),
-        contentType:"appliction/json",
+        contentType:"application/json",
         success: function (res) {
             if (res.status == 200) { //process is ok
                 alert(res.message);

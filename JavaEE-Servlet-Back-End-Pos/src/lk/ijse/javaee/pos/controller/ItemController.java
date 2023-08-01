@@ -1,16 +1,15 @@
 package lk.ijse.javaee.pos.controller;
 
+
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import lk.ijse.javaee.pos.Response;
-import lk.ijse.javaee.pos.dao.custom.ItemDAO;
-import lk.ijse.javaee.pos.dto.CustomerDTO;
 import lk.ijse.javaee.pos.dto.ItemDTO;
 import lk.ijse.javaee.pos.service.ServiceFactory;
 import lk.ijse.javaee.pos.service.custome.ItemBO;
 import lombok.SneakyThrows;
 
 import javax.annotation.Resource;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,31 +59,33 @@ public class ItemController extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDTO itemDTO = jsonb.fromJson(req.getReader(), ItemDTO.class);
-        try {
-            Connection connection = dataSource.getConnection();
-            boolean save = itemBO.save(itemDTO, connection);
-            if (save){
-                Response response = new Response(200,"Successfully",null);
-                String s = jsonb.toJson(response);
-                resp.setContentType("application/json");
-                resp.setStatus(200);
-                resp.getWriter().write(s);
-            }else {
-                Response response = new Response(404,"Error",null);
-                String s = jsonb.toJson(response);
-                resp.setStatus(404);
-                resp.getWriter().write(s);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            Response response = new Response(500,"Error",throwables.getLocalizedMessage());
-            String s = jsonb.toJson(response);
-            resp.setStatus(500);
-            resp.getWriter().write(s);
-        }finally {
-            connection.close();
-        }
+//        mthent sout ekk dl blnn r rq
+        System.out.println("hmbelaaaa");
+//        ItemDTO itemDTO = jsonb.fromJson(req.getReader(), ItemDTO.class);
+//        try {
+//            connection = dataSource.getConnection();
+//            boolean save = itemBO.save(itemDTO, connection);
+//            if (save){
+//                Response response = new Response(200,"Successfully",null);
+//                String s = jsonb.toJson(response);
+//                resp.setContentType("application/json");
+//                resp.setStatus(200);
+//                resp.getWriter().write(s);
+//            }else {
+//                Response response = new Response(404,"Error",null);
+//                String s = jsonb.toJson(response);
+//                resp.setStatus(404);
+//                resp.getWriter().write(s);
+//            }
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//            Response response = new Response(500,"Error",throwables.getLocalizedMessage());
+//            String s = jsonb.toJson(response);
+//            resp.setStatus(500);
+//            resp.getWriter().write(s);
+//        }finally {
+//            connection.close();
+//        }
 
     }
 
@@ -93,7 +94,7 @@ public class ItemController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ItemDTO itemDTO = jsonb.fromJson(req.getReader(),ItemDTO.class);
         try {
-            Connection connection = dataSource.getConnection();
+             connection = dataSource.getConnection();
             boolean update = itemBO.update(itemDTO, connection);
             if (update) {
                 Response response = new Response(200, "Successfully", null);
@@ -125,7 +126,7 @@ public class ItemController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String customerId = req.getParameter("Item");
         try {
-            Connection connection = dataSource.getConnection();
+            connection = dataSource.getConnection();
             boolean delete = itemBO.delete(customerId, connection);
             if (delete){
 
@@ -150,5 +151,10 @@ public class ItemController extends HttpServlet {
             resp.setStatus(500);
             resp.getWriter().write(s);
         }
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doOptions(req, resp);
     }
 }
