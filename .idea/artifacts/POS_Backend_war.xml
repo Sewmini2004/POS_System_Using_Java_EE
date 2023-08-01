@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="POS_Backend:war">
+    <output-path>D:/Working Directory/POS_Backend/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>POS_Backend</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="POS_Backend-1.0.0.war">
+      <element id="artifact" artifact-name="POS_Backend:war exploded" />
+    </root>
+  </artifact>
+</component>
