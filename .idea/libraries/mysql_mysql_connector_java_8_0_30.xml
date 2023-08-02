@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="mysql:mysql-connector-java:8.0.30" type="repository">
+    <properties maven-id="mysql:mysql-connector-java:8.0.30" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib2/mysql-connector-java-8.0.30.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib2/protobuf-java-3.19.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib2/protobuf-java-3.19.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib2/mysql-connector-java-8.0.30-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib2/protobuf-java-3.19.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

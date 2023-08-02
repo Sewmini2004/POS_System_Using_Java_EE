@@ -49,7 +49,7 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public boolean delete(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM `order` WHERE code=?;");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM `order` WHERE id=?;");
         statement.setObject(1, id);
         if (statement.executeUpdate() > 0) {
             System.out.println("Deleted");
@@ -62,7 +62,7 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public OrderEntity search(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("select * from `order` where code=?");
+        PreparedStatement statement = connection.prepareStatement("select * from `order` where id=?");
         statement.setObject(1, id);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {

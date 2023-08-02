@@ -12,8 +12,20 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="POS_Backend" />
+          <element id="module-output" name="JavaEE-Servlet-Back-End-Pos" />
         </element>
-        <element id="directory" name="lib" />
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.18/lombok-1.18.18.jar" />
+          <element id="library" level="project" name="javax.json.bind:javax.json.bind-api:1.0" />
+          <element id="library" level="project" name="org.projectlombok:lombok:1.18.28" />
+          <element id="library" level="project" name="javax.servlet:javax.servlet-api:4.0.1" />
+          <element id="library" level="project" name="javax:javaee-api:8.0" />
+          <element id="library" level="project" name="org.eclipse:yasson:2.0.4" />
+          <element id="library" level="project" name="org.glassfish:javax.json:1.1.4" />
+          <element id="library" level="project" name="mysql:mysql-connector-java:8.0.30" />
+          <element id="library" level="project" name="javax.json:javax.json-api:1.1.4" />
+          <element id="library" level="project" name="org.modelmapper:modelmapper:3.1.1" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="D:/Working Directory/POS_Backend/target/POS_Backend-1.0.0/META-INF/MANIFEST.MF" />

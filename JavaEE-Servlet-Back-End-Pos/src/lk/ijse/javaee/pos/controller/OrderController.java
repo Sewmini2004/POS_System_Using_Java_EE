@@ -41,6 +41,7 @@ public class OrderController extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         OrderDTO orderDTO = jsonb.fromJson(req.getReader(), OrderDTO.class);
         System.out.println(orderDTO);
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -78,13 +79,13 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Order get method called");
-
+        resp.setContentType("application/json");
         try {
             connection = dataSource.getConnection();
             ArrayList<OrderDTO> all = orderBO.getAll(connection);
             ArrayList<Order_DetailsDTO> detailsAll = detailsBO.getAll(connection);
             for (OrderDTO dto : all) {
-                ArrayList<Order_DetailsDTO> collect = detailsAll.stream().filter(order_detailsDTO -> order_detailsDTO.getOrder_id() == dto.getOrId()).collect(Collectors.toCollection(ArrayList::new));
+                ArrayList<Order_DetailsDTO> collect = detailsAll.stream().filter(order_detailsDTO -> order_detailsDTO.getOrder_id().equals(dto.getOrId())).collect(Collectors.toCollection(ArrayList::new));
                 dto.setOrderDetails(collect);
             }
             resp.getWriter().write(jsonb.toJson(new Response(200,"All orders",all)));
@@ -96,5 +97,23 @@ public class OrderController extends HttpServlet {
         }
 
         System.out.println("Order get method ended");
+    }
+
+    @SneakyThrows
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String orderId = req.getParameter("orderId");
+        try {
+            connection = dataSource.getConnection();
+            boolean delete = orderBO.delete(orderId, connection);
+            if(delete){
+                resp.getWriter().write(jsonb.toJson(new Response(200,"Deleted",orderId)));
+            }
+        } catch (SQLException throwables) {
+            resp.getWriter().write(jsonb.toJson(new Response(500,"Delete failed",orderId)));
+            throwables.printStackTrace();
+        }finally {
+            connection.close();
+        }
     }
 }

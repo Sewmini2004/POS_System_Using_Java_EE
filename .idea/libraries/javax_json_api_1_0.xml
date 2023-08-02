@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="javax.json-api-1.0">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/JavaEE-Servlet-Back-End-Pos/src/lk/ijse/javaee/pos/lib/javax.json-api-1.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
