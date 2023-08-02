@@ -65,6 +65,7 @@ function getAllCustomersFromBackEnd() {
             customerAr = resp.data;
             console.log("Get all request success");
             addCustomerTable();
+            loadAllCustomerId();
         },
         error: function (err) {
             console.log("Get all request failed");

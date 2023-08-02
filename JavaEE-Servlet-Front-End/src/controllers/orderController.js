@@ -1,3 +1,5 @@
+
+
 function loadAllCustomerId() {
     $('#customerIdOrd').empty();
     for (let customerArElement of customerAr) {
@@ -43,6 +45,7 @@ $('#btnAddToCart').click(function (){
     let itemCode=$('#itemIdOrd').val();
     let order_id = $('#orderId').val();
     let itmPrice = $('#priceOrd').val();
+    let itemName = $('#item').val();
     let itemOrderQty = $('#orderQty').val();
 
     let total =itmPrice*itemOrderQty;
@@ -58,9 +61,8 @@ $('#btnAddToCart').click(function (){
         addCartData();
 
     }else{
-        let tempCartModal=new TempCartModal(itemCode,order_id,itmPrice,itemOrderQty,total)
-
-
+        let tempCartModal=new TempCartModal(itemCode,itemName,order_id,itmPrice,itemOrderQty,total);
+        tempOrderCartAr.push(tempCartModal);
         addCartData();
     }
 
@@ -148,14 +150,15 @@ function clearData() {
 $('#purchaseOrder').click(function (){
     let orderId = $('#orderId').val();
     let orderDate = $('#OrderDate').val();
-    let customer_id = $('#customerId').val();
+    let customer_id = $('#customerIdOrd').val();
     let discount = disTOGave;
     let subTotal = $('#subTotal').val();
-    let orderModal = new OrderModal(orderId,orderDate,customer_id,discount,subTotal);
+    let orderModal = new OrderModal(orderId,orderDate,customer_id,discount,subTotal,tempOrderCartAr);
+
     $.ajax({
         method:"POST",
         url:"http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/order",
-        data:JSON.stringify(customerModal),
+        data:JSON.stringify(orderModal),
         contentType:"application/json",
         success:function (resp) {
 

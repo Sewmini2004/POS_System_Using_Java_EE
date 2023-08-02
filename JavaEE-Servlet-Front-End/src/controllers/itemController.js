@@ -1,4 +1,5 @@
 getAllItemsFromBackEnd();
+
 $("#itemId").focus();
 
 $('#btnItemSave').click(function (event) {
@@ -74,9 +75,8 @@ function itemSave(itmCode, itemName, qtOHand, itPrice) {
         success: function (res) {
             if (res.status == 200) { //process is ok
                 alert(res.message);
-                getAllItemsFromBackEnd();// meeken ned okkom gnne eeth eka athule arkth call krl tinone mokkd ne ne
+                getAllItemsFromBackEnd();
                 dblClickDelete();
-                loadAllItemId(); //mken ned tble ek load wenne ghm blnna
                 clearAllItemData();
             } else if (res.status == 400) { //there is a problem with the client side
                 alert(res.message);
@@ -213,7 +213,6 @@ function deleteItem(itemID) {
     }
 }
 
-
 /*Update Item*/
 $("#btnItemUpdate").click(function () {
     let itemID = $('#itId').val();
@@ -263,6 +262,7 @@ function getAllItemsFromBackEnd() {
             itemAr = resp.data;
             console.log("Get all request success");
             addTable();
+            loadAllItemId();
         },
         error: function (err) {
             console.log("Get all request failed");

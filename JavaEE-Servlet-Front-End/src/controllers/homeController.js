@@ -1,3 +1,5 @@
+getAllOrders();
+
 $('#btnSearchOrder').click(function () {
 
     for (var search of orders) {
@@ -5,7 +7,7 @@ $('#btnSearchOrder').click(function () {
         let searchOrder = $('#searchOrder').val();
         let chooseOrderType = $('#chooseOrderType').val();
         if (chooseOrderType === "ID") {
-            console.log("ID : "+searchOrder +"==="+ search.orId)
+            console.log("ID : " + searchOrder + "===" + search.orId)
 
             if (searchOrder === search.orId) {
                 $('#orderIdDash').val(search.orId);
@@ -16,7 +18,7 @@ $('#btnSearchOrder').click(function () {
 
             }
         } else if (chooseOrderType === "1") {
-            console.log("1 : "+searchOrder +"==="+ search.cusName)
+            console.log("1 : " + searchOrder + "===" + search.cusName)
             if (searchOrder === search.orCusName) {
                 $('#orderIdDash').val(search.orId);
                 $('#OrderDateDash').val(search.orDate);
@@ -25,7 +27,7 @@ $('#btnSearchOrder').click(function () {
                 $('#subTotDash').val(search.orSubTotal);
             }
         } else if (chooseOrderType === "2") {
-            console.log("2 : "+searchOrder +"==="+ search.ordDate)
+            console.log("2 : " + searchOrder + "===" + search.ordDate)
 
             if (searchOrder === search.orDate) {
                 $('#orderIdDash').val(search.orId);
@@ -39,7 +41,7 @@ $('#btnSearchOrder').click(function () {
     }
 });
 
-$('#btnClearOrd').click(function (){
+$('#btnClearOrd').click(function () {
     $('#orderIdDash').val("");
     $('#OrderDateDash').val("");
     $('#customerNameDash').val("");
@@ -48,13 +50,13 @@ $('#btnClearOrd').click(function (){
     $('#searchOrder').val("");
 });
 
-$('#btnDeleteOrd').click(function (){
+$('#btnDeleteOrd').click(function () {
     let deleteOrderId = $('#orderIdDash').val();
 
-    if (deleteOrder(deleteOrderId)){
+    if (deleteOrder(deleteOrderId)) {
         alert("Order Successfully Deleted....");
-        setOrderTextfieldValues("", "", "", "","");
-    }else{
+        setOrderTextfieldValues("", "", "", "", "");
+    } else {
         alert("No such Order to delete. please check the id");
     }
 });
@@ -62,33 +64,49 @@ $('#btnDeleteOrd').click(function (){
 
 /*FUNCTIONS*/
 
-function searchOrder(orderId){
-    for(var i of orders){
-        if (i.orId === orderId){
+function searchOrder(orderId) {
+    for (var i of orders) {
+        if (i.orId === orderId) {
             return i;
         }
     }
     return null;
 }
 
-function deleteOrder(orderId){
+function deleteOrder(orderId) {
     let ordObj = searchOrder(orderId);
 
-    if (ordObj != null){
+    if (ordObj != null) {
         let indexNumber = orders.indexOf(ordObj);
-        orders.splice(indexNumber,1);
+        orders.splice(indexNumber, 1);
         loadAllOrder();
         return true;
-    }else {
+    } else {
         return false;
     }
 }
 
-function setOrderTextfieldValues(orderId,date,name,dis,cost){
+function setOrderTextfieldValues(orderId, date, name, dis, cost) {
 
     $('#orderIdDash').val(orderId);
     $('#OrderDateDash').val(date);
     $('#customerNameDash').val(name);
     $('#discountDash').val(dis);
     $('#subTotDash').val(cost);
+}
+
+function getAllOrders() {
+    $.ajax({
+        url: "http://localhost:8080/JavaEE_Servlet_Back_End_Pos_war_exploded/order",
+        method: "GET",
+        success: function (res) {
+            console.log(res);
+            orders = res.data;
+            console.log(res.data);
+        },
+        error: function (ob, status, t) {
+
+        }
+    });
+
 }

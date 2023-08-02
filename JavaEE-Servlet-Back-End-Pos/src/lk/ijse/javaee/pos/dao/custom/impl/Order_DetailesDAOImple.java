@@ -15,13 +15,13 @@ public class Order_DetailesDAOImple implements Order_DetailesDAO {
     @Override
     public boolean save(Order_DetailesEntity order_detailesEntity, Connection connection) throws SQLException {
 
-        PreparedStatement statement = connection.prepareStatement("insert into order_details values (?,?,?,?,?,?)");
-        statement.setObject(1, order_detailesEntity.getId());
-        statement.setObject(2, order_detailesEntity.getOrder_id());
-        statement.setObject(3, order_detailesEntity.getOrItemCOde());
-        statement.setObject(4, order_detailesEntity.getOrItemQTY());
-        statement.setObject(5, order_detailesEntity.getOrItemPrice());
-        statement.setObject(6, order_detailesEntity.getOrItemTotal());
+
+        PreparedStatement statement = connection.prepareStatement("insert into order_details (order_id, item_code, qty, unit_price, total) values (?,?,?,?,?)");
+        statement.setObject(1, order_detailesEntity.getOrder_id());
+        statement.setObject(2, order_detailesEntity.getOrItemCOde());
+        statement.setObject(3, order_detailesEntity.getOrItemQTY());
+        statement.setObject(4, order_detailesEntity.getOrItemPrice());
+        statement.setObject(5, order_detailesEntity.getOrItemTotal());
         if (statement.executeUpdate() > 0) {
             System.out.println("Saved");
             return true;
@@ -33,13 +33,13 @@ public class Order_DetailesDAOImple implements Order_DetailesDAO {
 
     @Override
     public boolean update(Order_DetailesEntity order_detailesEntity, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("update order_details set order_id=?,item_code=?,qty=?,unit_price=?,total=? where id=?");
-        statement.setObject(1, order_detailesEntity.getOrder_id());
-        statement.setObject(2, order_detailesEntity.getOrItemCOde());
-        statement.setObject(3, order_detailesEntity.getOrItemQTY());
-        statement.setObject(4, order_detailesEntity.getOrItemPrice());
-        statement.setObject(5, order_detailesEntity.getOrItemTotal());
-        statement.setObject(6, order_detailesEntity.getId());
+        PreparedStatement statement = connection.prepareStatement
+                ("UPDATE order_details SET item_code = ?, qty = ?, unit_price = ?, total = ? WHERE id = ?");
+        statement.setString(1, order_detailesEntity.getOrItemCOde());
+        statement.setInt(2, order_detailesEntity.getOrItemQTY());
+        statement.setObject(3, order_detailesEntity.getOrItemPrice());
+        statement.setObject(4, order_detailesEntity.getOrItemTotal());
+        statement.setObject(5, order_detailesEntity.getId());
         if (statement.executeUpdate() > 0) {
             System.out.println("Updated");
             return true;
@@ -83,7 +83,7 @@ public class Order_DetailesDAOImple implements Order_DetailesDAO {
     @Override
     public List<Order_DetailesEntity> getAll(Connection connection) throws SQLException {
         ResultSet resultSet = connection.prepareStatement("select * from order_details").executeQuery();
-        List<Order_DetailesEntity> order_detailesEntities= new ArrayList<>();
+        List<Order_DetailesEntity> order_detailesEntities = new ArrayList<>();
         while (resultSet.next()) {
             order_detailesEntities.add(
                     new Order_DetailesEntity(

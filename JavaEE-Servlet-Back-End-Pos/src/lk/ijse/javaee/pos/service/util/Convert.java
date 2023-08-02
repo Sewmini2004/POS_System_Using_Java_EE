@@ -69,8 +69,8 @@ public class Convert {
   public static OrderEntity toOrder(OrderDTO orderDTO){
       return new OrderEntity(
               orderDTO.getOrId(),
-              orderDTO.getOrDate(),
               orderDTO.getOrcustomer_id(),
+              orderDTO.getOrDate(),
               orderDTO.getOrDis(),
               orderDTO.getOrSubTotal()
       );

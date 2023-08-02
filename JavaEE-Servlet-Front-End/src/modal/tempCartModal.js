@@ -14,12 +14,13 @@ function tempCartModal(id,itemCode,order_id,itmPrice,itemOrderQty,total) {
 
 
 class TempCartModal {
-    tempOrder() {
+    constructor(itemCode,orItemName,order_id,itmPrice,itemOrderQty,total) {
        /*     this.orid = id,*/
-            this.orItemCOde = itemCode,
-            this.ororder_id = order_id,
-            this.orItemPrice = itmPrice,
-            this.orItemQTY = itemOrderQty,
-            this.orItemTotal = total
+            this.orItemCOde = itemCode;
+            this.orItemName=orItemName;
+            this.ororder_id = order_id;
+            this.orItemPrice = itmPrice;
+            this.orItemQTY = itemOrderQty;
+            this.orItemTotal = total;
     }
 }

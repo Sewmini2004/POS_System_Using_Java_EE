@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderDAOImple implements OrderDAO {
     @Override
     public boolean save(OrderEntity orderEntity, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("insert into order values (?,?,?,?,?)");
+        PreparedStatement statement = connection.prepareStatement("insert into `order` values (?,?,?,?,?)");
         statement.setObject(1, orderEntity.getOrId());
         statement.setObject(2, orderEntity.getOrcustomer_id());
         statement.setObject(3, orderEntity.getOrDate());
@@ -32,7 +32,7 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public boolean update(OrderEntity orderEntity, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("update order set customer_id=?,date=?,discount=?,sub_total where id=? ");
+        PreparedStatement statement = connection.prepareStatement("update `order` set customer_id=?,date=?,discount=?,sub_total where id=? ");
         statement.setObject(1, orderEntity.getOrcustomer_id());
         statement.setObject(2, orderEntity.getOrDate());
         statement.setObject(3, orderEntity.getOrDis());
@@ -49,7 +49,7 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public boolean delete(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM order WHERE code=?;");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM `order` WHERE code=?;");
         statement.setObject(1, id);
         if (statement.executeUpdate() > 0) {
             System.out.println("Deleted");
@@ -62,14 +62,14 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public OrderEntity search(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("select * from order where code=?");
+        PreparedStatement statement = connection.prepareStatement("select * from `order` where code=?");
         statement.setObject(1, id);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             return new OrderEntity(
                     resultSet.getString(1),
-                    resultSet.getDate(2),
-                    resultSet.getString(3),
+                    resultSet.getString(2),
+                    resultSet.getDate(3),
                     resultSet.getDouble(4),
                     resultSet.getDouble(5)
             );
@@ -79,14 +79,14 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public List<OrderEntity> getAll(Connection connection) throws SQLException {
-        ResultSet resultSet = connection.prepareStatement("select * from order").executeQuery();
+        ResultSet resultSet = connection.prepareStatement("select * from `order`").executeQuery();
         List<OrderEntity> orders = new ArrayList<>();
         while (resultSet.next()) {
             orders.add(
                     new OrderEntity(
                             resultSet.getString(1),
-                            resultSet.getDate(2),
-                            resultSet.getString(3),
+                            resultSet.getString(2),
+                            resultSet.getDate(3),
                             resultSet.getDouble(4),
                             resultSet.getDouble(5)
 
@@ -98,7 +98,7 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public String generateNextId(Connection connection) throws SQLException {
-        ResultSet resultSet = connection.prepareStatement("SELECT id FROM order ORDER BY id DESC limit 1").executeQuery();
+        ResultSet resultSet = connection.prepareStatement("SELECT id FROM `order` ORDER BY id DESC limit 1").executeQuery();
         if (resultSet.next()) {
             String lastId = resultSet.getString(1);
             int i = Integer.parseInt(lastId.replace("O00-", "")) + 1;
@@ -110,7 +110,7 @@ public class OrderDAOImple implements OrderDAO {
 
     @Override
     public boolean isExist(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("select * from order where id=?");
+        PreparedStatement statement = connection.prepareStatement("select * from `order` where id=?");
         statement.setObject(1, id);
         return statement.executeQuery().next();
     }
