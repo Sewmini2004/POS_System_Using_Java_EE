@@ -88,8 +88,8 @@ public class Order_DetailesDAOImple implements Order_DetailesDAO {
             order_detailesEntities.add(
                     new Order_DetailesEntity(
                             resultSet.getString(1),
-                            resultSet.getString(2),
                             resultSet.getString(3),
+                            resultSet.getString(2),
                             resultSet.getDouble(4),
                             resultSet.getInt(5),
                             resultSet.getDouble(6)

@@ -9,8 +9,8 @@ import lombok.*;
 @ToString
 public class Order_DetailesEntity {
     private String id;
-    private String order_id;
     private String orItemCOde;
+    private String order_id;
     private double orItemPrice;
     private int orItemQTY;
     private double  orItemTotal;
