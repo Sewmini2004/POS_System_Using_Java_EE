@@ -81,7 +81,7 @@ function deleteOrder(orderId) {
                 orders.splice(indexNumber, 1);
                 loadAllOrder();
                 alert("Order Successfully Deleted....");
-                setOrderTextfieldValues("", "", "", "", "");
+                setOrderTextfieldValues("", "", "", "");
             },
             error: function (err) {
                 alert(err.data);
@@ -94,10 +94,11 @@ function deleteOrder(orderId) {
     }
 }
 
-function setOrderTextfieldValues(orderId, date, name, dis, cost) {
+function setOrderTextfieldValues(orderId, name, dis, cost) {
 
     $('#orderIdDash').val(orderId);
-    $('#OrderDateDash').val(date);
+
+    $('#OrderDateDash').val(new Date().toISOString().slice(0, 10));
     $('#customerNameDash').val(name);
     $('#discountDash').val(dis);
     $('#subTotDash').val(cost);

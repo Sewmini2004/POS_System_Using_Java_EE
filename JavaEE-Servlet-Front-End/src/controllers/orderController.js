@@ -220,4 +220,6 @@ function loadAllOrder() {
     for (var i of orders) {
         $('#tblOrder').append('<tr><td>' + i.orId + '</td>' + '<td>' + i.orDate + '</td>' + '<td>' + i.orcustomer_id + '</td>' + '<td>' + i.orDis + '</td>' + '<td>' + i.orSubTotal + '</td></tr>');
     }
+    $("#OrderDateDash").val(new Date().toISOString().slice(0, 10));
+
 }

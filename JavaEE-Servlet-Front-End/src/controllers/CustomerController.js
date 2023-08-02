@@ -66,6 +66,9 @@ function getAllCustomersFromBackEnd() {
             console.log("Get all request success");
             addCustomerTable();
             loadAllCustomerId();
+
+            //set today
+            $("#OrderDate").val(new Date().toISOString().slice(0, 10));
         },
         error: function (err) {
             console.log("Get all request failed");
